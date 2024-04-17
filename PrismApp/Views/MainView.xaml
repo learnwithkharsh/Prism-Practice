@@ -1,0 +1,15 @@
+﻿<Window x:Class="PrismApp.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PrismApp.Views"
+        mc:Ignorable="d"
+        Title="MainView" Height="450" Width="800"
+        xmlns:prism="http://prismlibrary.com/">
+    <DockPanel>
+        <ContentControl prism:RegionManager.RegionName="ToolBarRegion" DockPanel.Dock="Top" Height="30"/>
+        <ContentControl prism:RegionManager.RegionName="SideBarRegion" DockPanel.Dock="Left" Height="200"/>
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" Height="100"/>
+    </DockPanel>
+</Window>
