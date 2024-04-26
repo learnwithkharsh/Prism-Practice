@@ -1,15 +1,15 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32929.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismApp", "PrismApp\PrismApp.csproj", "{2D8FCFB2-D63C-4A5D-840B-AF7FDADD92B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismApp", "PrismApp\PrismApp.csproj", "{2D8FCFB2-D63C-4A5D-840B-AF7FDADD92B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SidebarModule", "SidebarModule\SidebarModule.csproj", "{D51CDBA4-51E1-402E-A2DD-B97FB2F44A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SidebarModule", "SidebarModule\SidebarModule.csproj", "{D51CDBA4-51E1-402E-A2DD-B97FB2F44A95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolbarModule", "ToolbarModule\ToolbarModule.csproj", "{DD2F2284-2975-4E9B-9274-637A7830015E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolbarModule", "ToolbarModule\ToolbarModule.csproj", "{DD2F2284-2975-4E9B-9274-637A7830015E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismApp.Core", "PrismApp.Core\PrismApp.Core.csproj", "{D42AD18F-0A4F-4D18-83E2-3E453F431785}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismApp.Core", "PrismApp.Core\PrismApp.Core.csproj", "{D42AD18F-0A4F-4D18-83E2-3E453F431785}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
