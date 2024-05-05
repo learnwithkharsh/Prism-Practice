@@ -7,9 +7,14 @@
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800"
         xmlns:prism="http://prismlibrary.com/">
+    <Window.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="Header" Value="{Binding DataContext.Title}"/>
+        </Style>
+    </Window.Resources>
     <DockPanel>
         <ContentControl prism:RegionManager.RegionName="ToolBarRegion" DockPanel.Dock="Top" Height="30"/>
         <ContentControl prism:RegionManager.RegionName="SideBarRegion" DockPanel.Dock="Left" Height="200"/>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" Height="100"/>
+        <TabControl prism:RegionManager.RegionName="ContentRegion" Height="100"/>
     </DockPanel>
 </Window>

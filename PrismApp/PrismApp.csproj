@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PrismApp.Core\PrismApp.Core.csproj" />
     <ProjectReference Include="..\SidebarModule\SidebarModule.csproj" />
+    <ProjectReference Include="..\TextEditorModule\TextEditorModule.csproj" />
     <ProjectReference Include="..\ToolbarModule\ToolbarModule.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SidebarModule.ViewModels
 {
@@ -22,8 +23,16 @@ namespace SidebarModule.ViewModels
         {
             if (!string.IsNullOrEmpty(viewName))
             {
-                _regionManager.RequestNavigate("ContentRegion", viewName);
+                //_regionManager.RequestNavigate("ContentRegion", viewName,NavigationCompleted);
+                var parameter =new NavigationParameters();
+                parameter.Add("name", "this is parameters");
+                _regionManager.RequestNavigate("ContentRegion", viewName, parameter);
             }
+        }
+
+        private void NavigationCompleted(NavigationResult result)
+        {
+            MessageBox.Show($"Navigation to {result.Context.Uri} view is completed");
         }
     }
 }

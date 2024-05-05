@@ -1,19 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\PrismApp.Core\PrismApp.Core.csproj" />
-    <ProjectReference Include="..\TextEditorModule\TextEditorModule.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
+
   <ItemGroup>
     <Reference Include="Prism">
       <HintPath>..\PrismApp\bin\Debug\Prism.dll</HintPath>
@@ -22,4 +19,5 @@
       <HintPath>..\PrismApp\bin\Debug\Prism.Wpf.dll</HintPath>
     </Reference>
   </ItemGroup>
+
 </Project>

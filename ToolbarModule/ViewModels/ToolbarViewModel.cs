@@ -1,30 +1,40 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using Prism.Events;
-using PrismApp.Core;
+using Prism.Regions;
+using PrismApp.Core.Models;
 
 namespace ToolbarModule.ViewModels
 {
     public class ToolbarViewModel : BindableBase
-    {
+    {     
         IDialogService _dialogService;
         IEventAggregator _eventAggregator;
         string content = string.Empty;
-        public ToolbarViewModel(IDialogService dialogService,IEventAggregator eventAggregator)
+        IRegionManager _regionManager;
+        public ToolbarViewModel(IDialogService dialogService,IEventAggregator eventAggregator,IRegionManager regionManager)
         {
+            _regionManager = regionManager;
             _eventAggregator = eventAggregator;
             _dialogService = dialogService;
             // OpenCommand = new DelegateCommand(Exceute).ObservesCanExecute(()=>IsChecked);
             SaveCommand = new DelegateCommand(Save,()=>true);
-            _eventAggregator.GetEvent<ContentEvents>().Subscribe(GetContent);
+            NewCommand = new DelegateCommand(New, () => true);
+            _eventAggregator.GetEvent<PrismApp.Core.ContentEvents>().Subscribe(GetContent);
+        }
+        static int count = 0;
+        private void New()
+        {
+            var param = new NavigationParameters();
+            FileModel file = new FileModel
+            {
+                FileName = $"new{++count}",
+                FileContent= $"this is file content{++count}"
+            };
+            param.Add("fileDetails", file);
+            _regionManager.RequestNavigate("ContentRegion", "TextEditorView", param);
         }
 
         private void Save()
@@ -38,6 +48,7 @@ namespace ToolbarModule.ViewModels
           
         }
 
+        public DelegateCommand NewCommand { get; }
         public DelegateCommand OpenCommand { get; }
         public DelegateCommand SaveCommand { get; }
 

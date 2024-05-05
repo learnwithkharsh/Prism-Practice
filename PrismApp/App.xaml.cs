@@ -5,6 +5,7 @@ using Prism.Regions;
 using PrismApp.Views;
 using SidebarModule.Modules;
 using System.Windows;
+using TextEditorModule.Modules;
 using ToolbarModule.Modules;
 
 namespace PrismApp
@@ -35,6 +36,7 @@ namespace PrismApp
             base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<SidebarModules>();
             moduleCatalog.AddModule<ToolbarModules>();
+            moduleCatalog.AddModule<TextEditorModules>();
         }
     }
 }
