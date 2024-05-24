@@ -31,7 +31,7 @@ namespace ToolbarModule.ViewModels
             FileModel file = new FileModel
             {
                 FileName = $"new{++count}",
-                FileContent= $"this is file content{++count}"
+                FileContent= $"this is file content{count}"
             };
             param.Add("fileDetails", file);
             _regionManager.RequestNavigate("ContentRegion", "TextEditorView", param);

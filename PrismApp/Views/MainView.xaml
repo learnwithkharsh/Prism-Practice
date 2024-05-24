@@ -5,16 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PrismApp.Views"
         mc:Ignorable="d"
+        xmlns:close="clr-namespace:PrismApp"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Title="MainView" Height="450" Width="800"
         xmlns:prism="http://prismlibrary.com/">
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="Header" Value="{Binding DataContext.Title}"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Content="{Binding}"/>
+                            <Button Content="X" Command="{Binding DataContext.DeleteTab,RelativeSource={RelativeSource
+                                AncestorType={x:Type TabControl}}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource
+                                AncestorType={x:Type TabItem}}}">
+                                <!--<i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <close:CloseActionTrigger />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>-->
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse x:Name="circle" Fill="Transparent"  StrokeThickness="2" Height="20" Width="20"/>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="circle" Property="Fill" Value="red"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <DockPanel>
         <ContentControl prism:RegionManager.RegionName="ToolBarRegion" DockPanel.Dock="Top" Height="30"/>
         <ContentControl prism:RegionManager.RegionName="SideBarRegion" DockPanel.Dock="Left" Height="200"/>
-        <TabControl prism:RegionManager.RegionName="ContentRegion" Height="100"/>
+        <TabControl prism:RegionManager.RegionName="ContentRegion" />
     </DockPanel>
 </Window>

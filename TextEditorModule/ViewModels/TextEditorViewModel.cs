@@ -1,17 +1,8 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
+﻿using Prism.Mvvm;
 using Prism.Events;
-using TextEditorModule.Models;
 using Prism.Regions;
-
+using Prism.Commands;
+using System.Windows.Controls;
 
 namespace TextEditorModule.ViewModels
 {
@@ -32,10 +23,20 @@ namespace TextEditorModule.ViewModels
             set { SetProperty(ref _fileContent, value); }
         }
         IEventAggregator _eventAggregator;
-        public TextEditorViewModel(IEventAggregator eventAggregator)
+        IRegionManager _regionManager;
+        public TextEditorViewModel(IEventAggregator eventAggregator,IRegionManager regionManager)
         {
             _eventAggregator= eventAggregator;
+            _regionManager = regionManager;
+            DeleteTab = new DelegateCommand<TabItem>(DeleteTabItem);
         }
+
+        private void DeleteTabItem(TabItem item)
+        {
+            _regionManager.Regions["ContentRegion"].Remove(item.Content);
+        }
+
+        public DelegateCommand<TabItem> DeleteTab { get; set; }
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
            return false;
