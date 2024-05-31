@@ -30,7 +30,7 @@ namespace ToolbarModule.ViewModels
             var param = new NavigationParameters();
             FileModel file = new FileModel
             {
-                FileName = $"new{++count}",
+                FileName = $"new 1",
                 FileContent= $"this is file content{count}"
             };
             param.Add("fileDetails", file);
