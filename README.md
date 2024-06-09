@@ -13,7 +13,8 @@
 [![Watch full playlist](https://img.youtube.com/vi/GdtWMQgQ96U/maxresdefault.jpg)](https://www.youtube.com/watch?v=GdtWMQgQ96U&list=PLl0ZDeqSI5YmjBhIJ4tmy6TlyYFUpXeRB)
 
 # Subscribe to My YouTube Channel
-If you enjoy this project and want to learn more about related topics, ![Consider subscribing to my YouTube channel]([https://www.youtube.com/watch?v=GdtWMQgQ96U&list=PLl0ZDeqSI5YmjBhIJ4tmy6TlyYFUpXeRB](https://www.youtube.com/@learnwithkharsh))
+
+If you enjoy this project and want to learn more about related topics, [Consider subscribing to my YouTube channel](https://www.youtube.com/@learnwithkharsh)
 
 Stay tuned for more tutorials and updates!
 
