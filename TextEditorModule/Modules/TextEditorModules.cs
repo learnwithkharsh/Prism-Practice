@@ -1,6 +1,8 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using PrismApp.Core.Interfaces;
+using TextEditorModule.ViewModels;
 using TextEditorModule.Views;
 
 
@@ -18,6 +20,7 @@ namespace TextEditorModule.Modules
         {
             containerRegistry.RegisterForNavigation<TextEditorView>();
             //containerRegistry.RegisterDialog<FileDialog, FileDialogViewModel>();
+            containerRegistry.Register<IFileModel,TextEditorViewModel>();
         }
     }
 }

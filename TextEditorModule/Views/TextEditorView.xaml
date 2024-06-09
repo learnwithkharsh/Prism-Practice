@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBox Text="{Binding FileContent}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <TextBox Text="{Binding FileContent,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </UserControl>

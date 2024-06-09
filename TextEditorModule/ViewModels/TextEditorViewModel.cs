@@ -5,17 +5,19 @@ using Prism.Commands;
 using System.Windows.Controls;
 using Prism;
 using System.Windows;
+using PrismApp.Core.Interfaces;
+using PrismApp.Core;
 
 namespace TextEditorModule.ViewModels
 {
-    public class TextEditorViewModel : BindableBase, INavigationAware, IActiveAware
+    public class TextEditorViewModel : BindableBase, INavigationAware, IActiveAware, IFileModel
     {
-        private string _title = string.Empty;
+        private string _FileName = string.Empty;
 
-        public string Title
+        public string FileName
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get { return _FileName; }
+            set { SetProperty(ref _FileName, value); }
         }
         private string _fileContent;
 
@@ -23,6 +25,13 @@ namespace TextEditorModule.ViewModels
         {
             get { return _fileContent; }
             set { SetProperty(ref _fileContent, value); }
+        }
+        private string _filePath;
+
+        public string FilePath
+        {
+            get { return _filePath; }
+            set { SetProperty(ref _filePath, value); }
         }
         IEventAggregator _eventAggregator;
         IRegionManager _regionManager;
@@ -53,10 +62,14 @@ namespace TextEditorModule.ViewModels
                 SetProperty(ref _isActive, value);
                 if (value)
                 {
-                    MessageBox.Show(FileContent);
+                    _eventAggregator.GetEvent<ContentEvents>().Publish(FilePath);
+                    //MessageBox.Show(FileContent);
                 }
             }
         }
+
+       
+      
 
         //public bool IsActive { get; set; }
 
@@ -64,7 +77,7 @@ namespace TextEditorModule.ViewModels
         {
             var param = navigationContext.Parameters["fileDetails"] as PrismApp.Core.Models.FileModel;
            
-            return param != null && Title == param.FileName;
+            return param != null && FileName == param.FileName;
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
@@ -77,8 +90,10 @@ namespace TextEditorModule.ViewModels
             var param = navigationContext.Parameters["fileDetails"] as PrismApp.Core.Models.FileModel;
             if (param != null)
             {
-                Title = param.FileName;
+                FileName = param.FileName;
                 FileContent = param.FileContent;
+                FilePath = param.FilePath;
+                _eventAggregator.GetEvent<ContentEvents>().Publish(FilePath);
             }
         }
     }

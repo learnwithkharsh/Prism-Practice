@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         xmlns:close="clr-namespace:PrismApp"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        Title="MainView" Height="450" Width="800"
+        Title="{Binding Title}" Height="450" Width="800"
         xmlns:prism="http://prismlibrary.com/">
     <Window.Resources>
         <Style TargetType="TabItem">
-            <Setter Property="Header" Value="{Binding DataContext.Title}"/>
+            <Setter Property="Header" Value="{Binding DataContext.FileName}"/>
             <Setter Property="HeaderTemplate">
                 <Setter.Value>
                     <DataTemplate>

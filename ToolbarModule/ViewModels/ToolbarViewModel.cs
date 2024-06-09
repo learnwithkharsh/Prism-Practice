@@ -5,6 +5,9 @@ using System.Windows;
 using Prism.Events;
 using Prism.Regions;
 using PrismApp.Core.Models;
+using PrismApp.Core.Interfaces;
+using System;
+using System.Linq;
 
 namespace ToolbarModule.ViewModels
 {
@@ -14,16 +17,34 @@ namespace ToolbarModule.ViewModels
         IEventAggregator _eventAggregator;
         string content = string.Empty;
         IRegionManager _regionManager;
-        public ToolbarViewModel(IDialogService dialogService,IEventAggregator eventAggregator,IRegionManager regionManager)
+        private readonly IFileService fileService;
+
+        public ToolbarViewModel(IDialogService dialogService,IEventAggregator eventAggregator,IRegionManager regionManager,IFileService fileService)
         {
             _regionManager = regionManager;
+            this.fileService = fileService;
             _eventAggregator = eventAggregator;
             _dialogService = dialogService;
-            // OpenCommand = new DelegateCommand(Exceute).ObservesCanExecute(()=>IsChecked);
+             OpenCommand = new DelegateCommand(Open);
             SaveCommand = new DelegateCommand(Save,()=>true);
             NewCommand = new DelegateCommand(New, () => true);
             _eventAggregator.GetEvent<PrismApp.Core.ContentEvents>().Subscribe(GetContent);
         }
+
+        private void Open()
+        {
+           var fileDetails= fileService.Open();
+            var param = new NavigationParameters();
+            FileModel file = new FileModel
+            {
+                FileName = fileDetails.FileName,
+                FileContent = fileDetails.FileContent,
+                FilePath= fileDetails.FilePath
+            };
+            param.Add("fileDetails", file);
+            _regionManager.RequestNavigate("ContentRegion", "TextEditorView", param);
+        }
+
         static int count = 0;
         private void New()
         {
@@ -39,7 +60,9 @@ namespace ToolbarModule.ViewModels
 
         private void Save()
         {
-            MessageBox.Show(content);
+            var activeView = _regionManager.Regions["ContentRegion"].ActiveViews.FirstOrDefault();
+            fileService.Save(activeView);
+            //MessageBox.Show(content);
         }
 
         private void GetContent(string obj)
