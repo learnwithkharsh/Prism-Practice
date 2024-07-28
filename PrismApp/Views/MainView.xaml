@@ -9,6 +9,15 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Title="{Binding Title}" Height="450" Width="800"
         xmlns:prism="http://prismlibrary.com/">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+   
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="Header" Value="{Binding DataContext.FileName}"/>
