@@ -7,6 +7,7 @@ using Prism;
 using System.Windows;
 using PrismApp.Core.Interfaces;
 using PrismApp.Core;
+using System.IO;
 
 namespace TextEditorModule.ViewModels
 {
@@ -33,9 +34,30 @@ namespace TextEditorModule.ViewModels
             get { return _filePath; }
             set { SetProperty(ref _filePath, value); }
         }
+
+        private bool _isActive;
+
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set
+            {
+                SetProperty(ref _isActive, value);
+                if (value)
+                {
+                    _eventAggregator.GetEvent<ContentEvents>().Publish(FilePath);
+                    if (_fileChanged)
+                        Notify();
+                }
+            }
+        }
+
+        private FileSystemWatcher fileSystemWatcher;
+        private bool _fileChanged = false;
         IEventAggregator _eventAggregator;
         IRegionManager _regionManager;
 
+        public DelegateCommand<TabItem> DeleteTab { get; set; }
         public event EventHandler IsActiveChanged;
 
         public TextEditorViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
@@ -50,33 +72,10 @@ namespace TextEditorModule.ViewModels
             _regionManager.Regions["ContentRegion"].Remove(item.Content);
         }
 
-        public DelegateCommand<TabItem> DeleteTab { get; set; }
-        private bool _isActive;
-
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set
-            {
-                //IsActive = value;
-                SetProperty(ref _isActive, value);
-                if (value)
-                {
-                    _eventAggregator.GetEvent<ContentEvents>().Publish(FilePath);
-                    //MessageBox.Show(FileContent);
-                }
-            }
-        }
-
-       
-      
-
-        //public bool IsActive { get; set; }
-
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             var param = navigationContext.Parameters["fileDetails"] as PrismApp.Core.Models.FileModel;
-           
+
             return param != null && FileName == param.FileName;
         }
 
@@ -94,7 +93,41 @@ namespace TextEditorModule.ViewModels
                 FileContent = param.FileContent;
                 FilePath = param.FilePath;
                 _eventAggregator.GetEvent<ContentEvents>().Publish(FilePath);
+                if (!string.IsNullOrEmpty(FilePath))
+                {
+                    fileSystemWatcher = new FileSystemWatcher(Path.GetDirectoryName(FilePath))
+                    {
+                        Filter = Path.GetFileName(FilePath),
+                        NotifyFilter = NotifyFilters.LastWrite
+                    };
+                    fileSystemWatcher.Changed += OnFileChnaged;
+                    fileSystemWatcher.EnableRaisingEvents = true;
+                }
             }
+        }
+
+        private void OnFileChnaged(object sender, FileSystemEventArgs e)
+        {
+            if (IsActive)
+                Notify();
+            else
+                _fileChanged = true;
+
+        }
+
+        private void Notify()
+        {
+            Application.Current.Dispatcher.BeginInvoke(() =>
+            {
+                var result = MessageBox.Show(Application.Current.MainWindow, "File has been modified from another application. do you want to reload it?", "Info", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+
+                    FileContent = File.ReadAllText(FilePath);
+                    _fileChanged = false;
+                }
+
+            });
         }
     }
 }
